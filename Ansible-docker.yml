@@ -1,0 +1,43 @@
+# Target Section
+- name: Installing Docker 
+  hosts: docker
+  tasks:
+# Setup Repo For Docker 
+   - name: configure docker repo 
+     get_url:
+      url: https://download.docker.com/linux/centos/docker-ce.repo
+      dest: /etc/yum.repos.d/docker-ce.repo
+      mode: '0644'
+# remove docker 
+- name: Remove Docker
+  yum:
+   name: "{{ item }}"
+   state: absent
+   with_items:
+    - docker
+    - docker-client
+    - docker-client-latest
+    - docker-common
+    - docker-latest
+    - docker-latest-logrotate
+    - docker-logrotate
+    - docker-engine
+# Install docker
+- name: Install Docker
+  yum:
+   name: "{{ item }}"
+   state: absent
+   with_items:
+    - docker-ce
+    - docker-ce-cli
+    - containerd.io
+
+# Start the service
+
+- name: star docker service
+  service:
+   name: docker
+   state: started
+  enabled: yes 
+
+# creata a container 
