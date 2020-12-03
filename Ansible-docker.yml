@@ -13,7 +13,7 @@
     yum:
      name: "{{ item }}"
      state: absent
-     with_items:
+    with_items:
       - docker
       - docker-client
       - docker-client-latest
@@ -27,7 +27,7 @@
     yum:
      name: "{{ item }}"
      state: absent
-     with_items:
+    with_items:
       - docker-ce
       - docker-ce-cli
       - containerd.io
@@ -41,3 +41,13 @@
      enabled: yes 
 
 # creata a container 
+  - name: create a nginx container
+    community.general.docker_container:
+     name: nginx
+     image: nginx
+     state: present
+     recreate: yes
+     exposed_ports:
+       - 80
+     ports:
+       - "100:80"
