@@ -42,7 +42,7 @@
 
 # creata a container 
   - name: create a nginx container
-    community.general.docker_container:
+    docker_container:
      name: nginx
      image: nginx
      state: present
